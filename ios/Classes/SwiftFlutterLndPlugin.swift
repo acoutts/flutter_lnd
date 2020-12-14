@@ -19,8 +19,8 @@ public class SwiftFlutterLndPlugin: NSObject, FlutterPlugin {
   // Start the lnd service. lnddir should be a directory we can write to, like getApplicationDocumentsDirectory() from Dart.
   private func startLndService(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     guard let arguments = call.arguments as? [String:Any] else {
-        result(FlutterError(code: "ARGUMENTS", message: "Invalid arguments supplied", details: nil))
-        return
+      result(FlutterError(code: "ARGUMENTS", message: "Invalid arguments supplied", details: nil))
+      return
     }
     
     // Verify lnddir supplied
@@ -31,7 +31,8 @@ public class SwiftFlutterLndPlugin: NSObject, FlutterPlugin {
     }
     
     print("Starting lnd using lnddir \(lnddir)")
-    LndmobileStart("--lnddir=\(lnddir) --bitcoin.testnet --bitcoin.active --bitcoin.node=neutrino  --neutrino.connect=faucet.lightning.community", LndUnlockerReady(), LndRpcReady())
+    LndmobileStart("--lnddir=\(lnddir) --bitcoin.testnet --bitcoin.active --bitcoin.node=neutrino  --neutrino.connect=faucet.lightning.community", LndUnlockerReady(), LndRpcReady()
+    )
   }
 }
 

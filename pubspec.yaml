@@ -1,18 +1,18 @@
 name: flutter_lnd
-description: Run lnd in a flutter app.
+description: A flutter package which adds a full lnd client on a mobile device.
 version: 0.0.1
 publish_to: none # Will remove once ready to publish.
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.8.1 <3.0.0"
   flutter: ">=1.20.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  lnd_dart:
+  lnd_client_dart:
     git:
-      url: https://github.com/acoutts/lnd_dart.git
+      url: https://github.com/acoutts/lnd_client_dart.git
   path_provider: ^1.6.24
 
 dev_dependencies:
