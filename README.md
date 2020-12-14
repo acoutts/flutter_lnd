@@ -1,15 +1,35 @@
 # flutter_lnd
 
-A new flutter plugin project.
+A flutter package which adds a full lnd client on a mobile device.
 
-## Getting Started
+## Getting started
+Minimal example:
+```dart
+await FlutterLnd.startLndService();
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+/// Lightning client
+final client = LightningClient(
+  ClientChannel(
+    'lnd-host',
+    port: 10009,
+  ),
+);
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+/// Wallet rpc client
+final wallet = WalletUnlockerClient(
+  ClientChannel(
+    'lnd-host',
+    port: 10009,
+  ),
+);
 
+/// Unlock the wallet
+await wallet.unlockWallet(
+  UnlockWalletRequest()..walletPassword = utf8.encode('password'),
+);
+
+/// Create an invoice for 10,000 SAT
+await client.addInvoice(
+  Invoice()..amtPaidSat = Int64(10000),
+);
+```
