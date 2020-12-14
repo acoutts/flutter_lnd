@@ -30,20 +30,21 @@ public class SwiftFlutterLndPlugin: NSObject, FlutterPlugin {
       return
     }
     
-    LndmobileStart("--lnddir=\(lnddir) --bitcoin.testnet", LndUnlockerReady(), LndRpcReady())
+    print("Starting lnd using lnddir \(lnddir)")
+    LndmobileStart("--lnddir=\(lnddir) --bitcoin.testnet --bitcoin.active --bitcoin.node=neutrino  --neutrino.connect=faucet.lightning.community", LndUnlockerReady(), LndRpcReady())
   }
 }
 
 // The unlockerReady callback is called when the WalletUnlocker service is
 // ready.
-class LndUnlockerReady: LndmobileCallback {
-  override func onError(_ error: Error?) {
+class LndUnlockerReady: NSObject, LndmobileCallbackProtocol {
+  func onError(_ error: Error?) {
     print("LndUnlockerReady error: \(error?.localizedDescription ?? "")")
     
     // TODO: emit stream events for subscribed dart listeners
   }
   
-  override func onResponse(_ data: Data?) {
+  func onResponse(_ data: Data?) {
     print("LndUnlockerReady response")
     
     // TODO: emit stream events for subscribed dart listeners
@@ -52,14 +53,14 @@ class LndUnlockerReady: LndmobileCallback {
 
 // The rpcReady callback is called after the wallet has been unlocked and lnd is
 // ready to accept RPC calls
-class LndRpcReady: LndmobileCallback {
-  override func onError(_ error: Error?) {
+class LndRpcReady: NSObject, LndmobileCallbackProtocol {
+  func onError(_ error: Error?) {
     print("LndRpcReady error: \(error?.localizedDescription ?? "")")
     
     // TODO: emit stream events for subscribed dart listeners
   }
   
-  override func onResponse(_ data: Data?) {
+  func onResponse(_ data: Data?) {
     print("LndRpcReady response")
     
     // TODO: emit stream events for subscribed dart listeners
